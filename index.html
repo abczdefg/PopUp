@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>三角形弹出框</title>
+	<style type="text/css">
+		html, body{
+			padding: 0;
+			margin: 0;
+			height: 100%;
+			font-family: 'Microsoft YaHei';
+		}
+		
+		li {
+			list-style: none;
+		}
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		.form-block {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-around;
+		}
+		.form-block > .title {
+			margin: 50px 0; 
+		    padding-left: 10px;
+			font-size: 24px;
+			color: #E25911;
+			border-left: 5px solid;
+		}
+		.form-block > .sub-title {
+			margin: 20px 0; 
+		    font-size: 16px;
+		}
+		.form-content:after, .pic-list:after, .pic-list label:after{
+			content: '';
+			clear: both;
+			display: block;
+		}
+	
+		.pic-list {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+		}
+		.pic-list > .pic-list-li{
+			width: 200px;
+			height: 200px;
+			list-style: none;
+		}
+		.pic-list-detail {
+			position: relative;
+			top: -350px;
+			width: 500px;
+			height: 700px;
+			padding: 10px;
+			border: 1px solid #AAA;
+			border-radius: 5px;
+			background: #fff;
+			text-align: center;
+			z-index: 900;
+			display: none;
+		}
+		.pic-list-left > .pic-list-detail {
+			left: 180px;
+		}	
+		.pic-list-left > .pic-list-detail:before {
+			position: absolute;
+			left: -18px;
+			top: 200px;
+			border-style: solid;
+			border-color: transparent #FFF transparent transparent;
+			border-width: 20px 20px 20px 0;
+			content: '';
+			z-index: 101;
+		}	
+		.pic-list-left > .pic-list-detail:after {
+			position: absolute;
+			left: -20px;
+			top: 200px;
+			border-style: solid;
+			border-color: transparent #CCC transparent transparent;
+			border-width: 20px 20px 20px 0;
+			content: '';
+			z-index: 100;
+		}				
+		.pic-list-right > .pic-list-detail {
+			left: -503px;
+		}
+		.pic-list-right > .pic-list-detail:before {
+			position: absolute;
+			right: -18px;
+			top: 200px;
+			border-style: solid;
+			border-color: transparent transparent transparent #FFF;
+			border-width: 20px 0 20px 20px;
+			content: '';
+			z-index: 101;
+		}	
+		.pic-list-right > .pic-list-detail:after {
+			position: absolute;
+			right: -20px;
+			top: 200px;
+			border-style: solid;
+			border-color: transparent transparent transparent #CCC;
+			border-width: 20px 0 20px 20px;
+			content: '';
+			z-index: 100;
+		}
+		.pic-list-detail > img{
+			height: 100%;
+		}
+		.pic-list .pic-checkbox {
+			position: relative;
+			cursor: pointer;
+			font-size: 0;
+		}
+		.pic-checkbox > .pic-checkbox-img{
+			position: relative;
+			left: 35px;
+			width: 130px;
+			height: 130px;
+			line-height: 130px;
+			font-size: 0;
+			display: inline-block;
+		}		
+		.pic-checkbox > .pic-checkbox-img > img{
+			width: 130px;
+			height: 130px;
+			border-radius: 5px;
+			overflow: hidden; 
+		}		
+		.pic-checkbox > .pic-checkbox-img > .pic-checkbox-mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 130px;
+			height: 130px;
+			background: rgba(226, 89, 17, 0.2);
+			z-index: 500;
+			display: none;
+		}
+		.pic-checkbox .pic-checkbox-text{
+			font-size: 16px;
+			padding: 10px 0;
+			display: flex;
+			justify-content: center;
+		}
+		.pic-checkbox-img:hover .pic-checkbox-mask{
+			display: block;
+		}
+		.pic-checkbox:hover, .pic-checkbox-selected {
+			color: #E25911;
+		}
+		.pic-checkbox-selected > .pic-checkbox-img > .pic-checkbox-mask{
+			display: block;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="main-wrapper">
+	<div class="form-block">
+		<div class="title">CSS绘制带三角形弹出框</div>
+		<div class="sub-title">1. 鼠标移到小图有惊喜</div>
+		<div class="sub-title">2. 原理：利用盒子模型，宽高设为0，4个border则为4个三角形。</div>
+		<div class="sub-title">3. 顺便复习flex布局</div>
+		<div class="sub-title"><a href="http://abczdefg.oschina.io/blog/" target="_blank">4. 点我有惊喜</a></div>
+		<div class="form-content">
+			<ul class="pic-list">
+				<li class="pic-list-li pic-list-left">
+					<label class="pic-checkbox">
+						<div class="pic-checkbox-img">
+							<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767470710&di=b84179f6f171e654dda819cca3be5b40&imgtype=0&src=http%3A%2F%2Fwww.qq1234.org%2Fuploads%2Fallimg%2F141205%2F3_120515455X354.jpg" alt="简洁型">
+							<div class="pic-checkbox-mask"></div>
+						</div>
+						<div class="pic-checkbox-text"><input name="style" type="checkbox" value=""><span>简洁型</span></div>
+					</label>
+					<div class="pic-list-detail">
+						<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767361940&di=72fc0f7d860b0ffc629d16f3f29ef383&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F07%2F20151107162216_8V5ZX.thumb.700_0.jpeg">
+					</div>
+				</li>
+				<li class="pic-list-li pic-list-left">
+					<label class="pic-checkbox">
+						<div class="pic-checkbox-img">
+							<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767470710&di=b84179f6f171e654dda819cca3be5b40&imgtype=0&src=http%3A%2F%2Fwww.qq1234.org%2Fuploads%2Fallimg%2F141205%2F3_120515455X354.jpg" alt="产品型">
+							<div class="pic-checkbox-mask"></div>
+						</div>
+						<div class="pic-checkbox-text"><input name="style" type="checkbox" value=""><span>产品型</span></div>
+					</label>
+					<div class="pic-list-detail">
+						<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767361940&di=72fc0f7d860b0ffc629d16f3f29ef383&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F07%2F20151107162216_8V5ZX.thumb.700_0.jpeg">
+					</div>
+				</li>
+				<li class="pic-list-li pic-list-right">
+					<label class="pic-checkbox">
+						<div class="pic-checkbox-img">
+							<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767470710&di=b84179f6f171e654dda819cca3be5b40&imgtype=0&src=http%3A%2F%2Fwww.qq1234.org%2Fuploads%2Fallimg%2F141205%2F3_120515455X354.jpg" alt="资讯型">
+							<div class="pic-checkbox-mask"></div>
+						</div>
+						<div class="pic-checkbox-text"><input name="style" type="checkbox" value=""><span>资讯型</span></div>
+					</label>
+					<div class="pic-list-detail">
+						<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767361940&di=72fc0f7d860b0ffc629d16f3f29ef383&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F07%2F20151107162216_8V5ZX.thumb.700_0.jpeg">
+					</div>
+				</li>
+				<li class="pic-list-li pic-list-right">
+					<label class="pic-checkbox">
+						<div class="pic-checkbox-img">
+							<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767470710&di=b84179f6f171e654dda819cca3be5b40&imgtype=0&src=http%3A%2F%2Fwww.qq1234.org%2Fuploads%2Fallimg%2F141205%2F3_120515455X354.jpg" alt="服务型">
+							<div class="pic-checkbox-mask"></div>
+						</div>
+						<div class="pic-checkbox-text"><input name="style" type="checkbox" value=""><span>服务型</span></div>
+					</label>
+					<div class="pic-list-detail">
+						<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487767361940&di=72fc0f7d860b0ffc629d16f3f29ef383&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F07%2F20151107162216_8V5ZX.thumb.700_0.jpeg">
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	<script>
+		var picCheckBox = document.getElementsByClassName('pic-checkbox'),
+			picListDetail = document.getElementsByClassName('pic-list-detail');
+
+		//添加带图多选的选中样式
+		for (var i = 0; i < picCheckBox.length; i++) {
+			picCheckBox[i].onclick = function(e) {
+				var re = /pic-checkbox-selected/;
+				if (e.target.tagName == 'INPUT') {
+					if (!re.test(this.className)) {
+						//未选中
+						this.className = this.className + ' pic-checkbox-selected';
+					} else {
+						this.className = this.className.replace(' pic-checkbox-selected','');
+					}
+				}
+			};
+
+			//添加带图多选的hover样式
+			var picCheckBoxImg = picCheckBox[i].getElementsByClassName('pic-checkbox-img')[0];
+			(function(i){
+				picCheckBoxImg.onmouseover = function() {
+					picListDetail[i].style.display = 'block';
+				};
+				picCheckBoxImg.onmouseout = function() {
+					picListDetail[i].style.display = 'none';
+				};
+			})(i);
+		}
+
+	</script>
+</body>
+</html>
